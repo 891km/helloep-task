@@ -1,0 +1,28 @@
+"use client";
+export default function LayoutButton({ isList, setIsList }) {
+  const handleLayoutClick = () => {
+    setIsList((prev) => !prev);
+  };
+
+  return (
+    <button
+      className="shrink-0 flex items-center justify-center gap-1"
+      onClick={handleLayoutClick}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="11"
+        viewBox="0 0 16 11"
+        fill="none"
+      >
+        <path d="M0.207153 3.4789H14.0851L10.9597 0.353554" stroke="#787878" />
+        <path
+          d="M15.0851 7.35321L1.20715 7.35321L4.3325 10.4786"
+          stroke="#787878"
+        />
+      </svg>
+      <span>{isList ? "list" : "img"}</span>
+    </button>
+  );
+}

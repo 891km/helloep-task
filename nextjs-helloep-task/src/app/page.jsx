@@ -1,3 +1,3 @@
-export default async function IndexPage() {
+export default function IndexPage() {
   return null;
 }

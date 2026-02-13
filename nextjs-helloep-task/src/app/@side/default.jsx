@@ -1,3 +1,3 @@
-export default function SideDefault() {
+export default function SideDefaultPage() {
   return <>사이드</>;
 }

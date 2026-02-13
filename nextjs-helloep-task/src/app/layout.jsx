@@ -17,11 +17,14 @@ export default function RootLayout({ main, side }) {
     <html lang="ko">
       <body className={`${interSans.variable} antialiased`}>
         <LanguageProvider>
-          <div className="flex w-screen h-screen overflow-hidden">
-            <div className="flex-1">
+          <div className="flex w-screen h-screen">
+            <main className="flex flex-col w-full h-full overflow-y-auto">
               <Header />
-              <main className="p-2.5">{main}</main>
-            </div>
+              <div className="flex-1 px-2.5 pb-11 w-full flex flex-col">
+                {main}
+              </div>
+            </main>
+
             <div className="border-l border-l-gray p-2.5 w-1/3 min-w-100 max-w-[80%] h-full">
               {side}
             </div>

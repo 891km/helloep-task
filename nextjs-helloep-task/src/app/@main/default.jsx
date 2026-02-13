@@ -1,3 +1,3 @@
-export default async function MainDefault() {
-  return <>메인</>;
+export default function MainDefaultPage() {
+  return null;
 }
