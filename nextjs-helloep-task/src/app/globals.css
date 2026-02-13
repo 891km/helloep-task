@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --background: #131313;
+  --foreground: #e2e2e2;
+}
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 390px;
+  --breakpoint-md: 720px;
+  --breakpoint-lg: 1195px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* custom */
+  --color-gray: #787878;
+  --color-black: #131313;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type="search"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+::selection {
+  color: #004595;
+  background: #77ffe9;
+}
+
+::-webkit-selection {
+  color: #004595;
+  background: #77ffe9;
+}
