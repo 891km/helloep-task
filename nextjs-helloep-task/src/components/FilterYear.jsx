@@ -34,19 +34,19 @@ export default function FilterYear({ years }) {
           height="7"
           viewBox="0 0 11 7"
           fill="none"
-          className={`transition-transform duration-200 ${
+          className={`text-gray transition-transform duration-200 ${
             isYearOpen ? "-rotate-180" : "rotate-0"
           }`}
         >
           <path
             d="M0.353577 0.353546L5.35358 5.35355L10.3536 0.353546"
-            stroke="#787878"
+            stroke="currentColor"
           />
         </svg>
       </button>
       {isYearOpen && (
-        <ul className="absolute top-[calc(100%+1px)] left-0 w-full border-b border-b-gray">
-          <li className="bg-[#D9D9D91A] h-8 flex items-center">
+        <ul className="absolute top-[calc(100%+1px)] left-0 w-full bg-[#222222] border-b border-b-gray z-10">
+          <li className="h-8 flex items-center">
             <button
               className={`w-full h-full px-2 text-left hover:bg-[#323232] ${currentYear ? "bg-none" : "bg-[#323232]"}`}
               onClick={() => handleYearClick("")}
@@ -55,7 +55,7 @@ export default function FilterYear({ years }) {
             </button>
           </li>
           {years.map((year) => (
-            <li key={year} className="bg-[#D9D9D91A] h-8 flex items-center">
+            <li key={year} className="h-8 flex items-center">
               <button
                 className={`w-full h-full px-2 text-left hover:bg-[#323232] ${+currentYear === +year ? "bg-[#323232]" : "bg-none"}`}
                 onClick={() => handleYearClick(year)}

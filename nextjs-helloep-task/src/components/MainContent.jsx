@@ -7,6 +7,7 @@ import FilterYear from "@/components/FilterYear";
 import FilterReset from "@/components/FilterReset";
 import FilterSearch from "@/components/FilterSearch";
 import Pagination from "@/components/Pagination";
+import ResultList from "@/components/ResultList";
 
 export default function MainContent({ posts, years, totalPages }) {
   const [isList, setIsList] = useState(false);
@@ -31,12 +32,16 @@ export default function MainContent({ posts, years, totalPages }) {
       <section className="mt-11">
         <h2 className="sr-only">검색 결과 목록</h2>
         {posts.length > 0 ? (
-          <ResultGrid posts={posts} />
+          isList ? (
+            <ResultList posts={posts} />
+          ) : (
+            <ResultGrid posts={posts} />
+          )
         ) : (
           <div>결과가 없습니다.</div>
         )}
 
-        <Pagination />
+        <Pagination totalPages={totalPages} />
       </section>
     </>
   );

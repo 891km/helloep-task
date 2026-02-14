@@ -22,7 +22,7 @@ export default function LayoutButton({ isList, setIsList }) {
           stroke="#787878"
         />
       </svg>
-      <span>{isList ? "list" : "img"}</span>
+      <span>{isList ? "img" : "list"}</span>
     </button>
   );
 }
