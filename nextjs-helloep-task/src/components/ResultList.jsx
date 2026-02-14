@@ -12,9 +12,9 @@ export default function ResultList({ posts }) {
           <li key={post._id}>
             <Link
               href={`${post.slug.current}`}
-              className="flex items-center h-9 border-b border-b-gray hover:opacity-50"
+              className="flex items-start gap-2.5 py-2 border-b border-b-gray hover:opacity-50"
             >
-              <div className="flex-2 flex items-center gap-3">
+              <div className="flex-2 flex flex-wrap items-center self-center gap-x-3 gap-y-2">
                 <h3 className="text-base/5">
                   {isKor ? post.title : post.eng.title}
                 </h3>
