@@ -2,20 +2,20 @@
 import { useLanguage } from "@/provider/LanguageProvider";
 
 export default function LanguageButton() {
-  const { language, setLanguage } = useLanguage();
+  const { isKor, setIsKor } = useLanguage();
 
   return (
     <div className="flex gap-1 text-gray">
       <button
-        className={`${language === "kor" ? "text-foreground" : "text-gray"}`}
-        onClick={() => setLanguage("kor")}
+        className={`transition-colors ${isKor ? "text-foreground" : "text-gray"}`}
+        onClick={() => setIsKor(true)}
       >
         Kor
       </button>
       <span>/</span>
       <button
-        className={`${language === "eng" ? "text-foreground" : "text-gray"}`}
-        onClick={() => setLanguage("eng")}
+        className={`transition-colors ${!isKor ? "text-foreground" : "text-gray"}`}
+        onClick={() => setIsKor(false)}
       >
         Eng
       </button>

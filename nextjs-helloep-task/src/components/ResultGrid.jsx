@@ -1,8 +1,11 @@
 import CategoryTag from "@/components/CategoryTag";
+import { useLanguage } from "@/provider/LanguageProvider";
 import { urlFor } from "@/utils/urlFor";
 import Link from "next/link";
 
 export default function ResultGrid({ posts }) {
+  const { isKor } = useLanguage();
+
   return (
     <ul className="flex flex-wrap items-baseline gap-2.5">
       {posts.map((post) => {
@@ -18,7 +21,9 @@ export default function ResultGrid({ posts }) {
                 decoding="async"
                 loading="lazy"
               />
-              <h3 className="text-base/5">{post.title}</h3>
+              <h3 className="text-base/5">
+                {isKor ? post.title : post.eng.title}
+              </h3>
               <ul className="flex flex-wrap gap-1">
                 {post.categories.map((category) => (
                   <CategoryTag key={category} category={category} />

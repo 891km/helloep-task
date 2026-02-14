@@ -1,18 +1,24 @@
 "use client";
 import CategoryTag from "@/components/CategoryTag";
+import { useLanguage } from "@/provider/LanguageProvider";
 import { getYoutubeEmbed } from "@/utils/getYoutubeEmbed";
 import { urlFor } from "@/utils/urlFor";
 import { useState } from "react";
 
 export default function SideContent({ post }) {
+  const { isKor } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false);
+
+  if (!post) return;
 
   return (
     <div className="relative flex-1 w-full h-full flex flex-col">
       <div className="flex-1 flex flex-col w-full overflow-y-auto">
         {/* title */}
         <div className="px-2.5 py-3 pb-8 flex gap-4 justify-between items-start">
-          <span className="text-2xl">{post.title}</span>
+          <span className="text-2xl">
+            {isKor ? post.title : post.eng.title}
+          </span>
 
           <div className="flex gap-1.5 mt-1">
             <span className="h-4 flex items-center">{post.workYear}</span>
@@ -70,10 +76,14 @@ export default function SideContent({ post }) {
           isExpanded={isExpanded}
         />
         <p className={`whitespace-pre-line ${!isExpanded && "line-clamp-2"}`}>
-          {post.description}
+          {isKor ? post.description : post.eng.description}
         </p>
-        <p className="whitespace-pre-line">{post.credit}</p>
-        <span>클라이언트. {post.client}</span>
+        <p className="whitespace-pre-line">
+          {isKor ? post.credit : post.eng.credit}
+        </p>
+        <span>
+          {isKor ? "클라이언트." : "Client."} {post.client}
+        </span>
 
         {post.workLinks && post.workLinks.length > 0 && (
           <div>

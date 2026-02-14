@@ -4,13 +4,13 @@ import { createContext, useContext, useState } from "react";
 const LanguageContext = createContext(null);
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState("kor");
+  const [isKor, setIsKor] = useState(false);
 
   return (
     <LanguageContext.Provider
       value={{
-        language,
-        setLanguage,
+        isKor,
+        setIsKor,
       }}
     >
       {children}
