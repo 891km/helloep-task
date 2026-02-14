@@ -93,12 +93,48 @@ export const postType = defineType({
       of: [
         {
           type: 'image',
+          name: 'image',
+          title: 'Image',
+          fields: [
+            {
+              name: 'caption',
+              type: 'string',
+            },
+          ],
+          preview: {
+            select: {
+              asset: 'asset',
+            },
+            prepare({asset}) {
+              return {
+                title: 'Image',
+                media: asset,
+              }
+            },
+          },
         },
         {
           type: 'object',
           name: 'youtubeEmbed',
           title: 'YouTube Embed',
-          fields: [{name: 'url', type: 'url'}],
+          fields: [
+            {
+              name: 'url',
+              type: 'url',
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: 'caption',
+              type: 'string',
+            },
+          ],
+          preview: {
+            prepare() {
+              return {
+                title: 'YouTube URL',
+              }
+            },
+          },
         },
       ],
       validation: (rule) => rule.required(),
@@ -107,7 +143,11 @@ export const postType = defineType({
     defineField({
       name: 'workLinks',
       type: 'array',
-      of: [{type: 'url'}],
+      of: [
+        {
+          type: 'url',
+        },
+      ],
     }),
 
     defineField({

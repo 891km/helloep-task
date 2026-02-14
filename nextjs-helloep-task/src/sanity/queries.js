@@ -50,10 +50,33 @@ export async function fetchPosts({ category, workYear, search, page = 1 }) {
   return await client.fetch(POSTS_QUERY, {}, options);
 }
 
-export async function fetchPostDetail(params) {
-  const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
+export async function fetchPostBySlug(slug) {
+  if (!slug) return null;
 
-  return await client.fetch(POST_QUERY, await params, options);
+  const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+    _id,
+    slug,
+    publishedAt,
+
+    title,
+    description,
+    credit,
+    eng{
+      title,
+      description,
+      credit
+    },
+
+    thumbnail,
+    workYear,
+    categories,
+    client,
+    workLinks,
+
+    content[]
+  }`;
+
+  return await client.fetch(POST_QUERY, { slug }, options);
 }
 
 export async function fetchWorkYears() {

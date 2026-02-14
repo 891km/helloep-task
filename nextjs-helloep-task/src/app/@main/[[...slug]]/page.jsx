@@ -1,4 +1,3 @@
-import Loading from "@/components/Loading";
 import MainContent from "@/components/MainContent";
 import { fetchPosts, fetchTotalPages, fetchWorkYears } from "@/sanity/queries";
 
