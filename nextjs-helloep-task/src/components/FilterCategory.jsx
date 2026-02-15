@@ -8,6 +8,7 @@ export default function FilterCategory() {
 
   const createHref = (category) => {
     const params = new URLSearchParams(searchParams.toString());
+    params.delete("page");
 
     if (category) {
       params.set("category", category);

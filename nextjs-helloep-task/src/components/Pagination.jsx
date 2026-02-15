@@ -1,36 +1,87 @@
+import { PAGE_SIZE } from "@/utils/constants";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-const tempPagination = Array.from({ length: 15 }, (_, i) => i + 1);
+const PAGE_VISIBLE_NUM = 3;
 
-export default function Pagination({ totalPages }) {
-  const searchParams = useSearchParams();
-  const currentPage = searchParams.get("page");
+function getPagenation(current, total) {
+  const pagination = [];
 
-  if (totalPages <= 1) return null;
-  return (
-    <nav className="mt-4.5">
-      <ul className="flex gap-1">
-        {tempPagination.slice(0, 6).map((num) => (
-          <NumberItem key={num}>
-            <Link href="/">{num}</Link>
-          </NumberItem>
-        ))}
-        <span>···</span>
-        <NumberItem>
-          <Link href="/">{tempPagination[tempPagination.length - 1]}</Link>
-        </NumberItem>
-      </ul>
-    </nav>
-  );
+  pagination.push(1);
+
+  if (total !== 1) {
+    let start = Math.max(2, current - PAGE_VISIBLE_NUM);
+    let end = Math.min(current + PAGE_VISIBLE_NUM, total - 1);
+
+    if (start - 1 >= 2) {
+      pagination.push("···");
+    }
+
+    for (let i = start; i <= end; i++) {
+      pagination.push(i);
+    }
+
+    if (total - end >= 2) {
+      pagination.push("···");
+    }
+
+    pagination.push(total);
+  }
+
+  return pagination;
 }
 
-function NumberItem({ children }) {
+export default function Pagination({ postCount, page: currentPageNum }) {
+  const searchParams = useSearchParams();
+  const totalPageNum = Math.ceil(postCount / PAGE_SIZE);
+
+  if (totalPageNum <= 1 || currentPageNum > totalPageNum) return null;
+
+  const pagination = getPagenation(currentPageNum, totalPageNum);
+
+  const createHref = (pageNum) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (pageNum <= 1) {
+      params.delete("page");
+    } else {
+      params.set("page", pageNum);
+    }
+
+    const query = params.toString();
+    return query ? `/?${query}` : "/";
+  };
+
   return (
-    <li
-      className={`px-1.75 h-5 flex items-center bg-[#464646] rounded-sm hover:bg-[#2a2a2a] cursor-pointer transition-colors`}
-    >
-      {children}
-    </li>
+    <nav className="mt-4.5">
+      <ul className="flex gap-1 h-5">
+        {pagination.map((pageNum, i) => {
+          if (typeof pageNum === "number") {
+            return (
+              <li
+                key={pageNum}
+                className={`rounded-sm transition-colors hover:bg-[#2a2a2a] bg-[#464646] ${+currentPageNum === +pageNum && "bg-background"}`}
+              >
+                <Link
+                  href={createHref(pageNum)}
+                  className={`px-1.75 h-full flex items-center`}
+                >
+                  {pageNum}
+                </Link>
+              </li>
+            );
+          } else {
+            return (
+              <li
+                key={`${"ellipsis" + i}`}
+                className="px-1.75 h-full flex items-center"
+              >
+                {pageNum}
+              </li>
+            );
+          }
+        })}
+      </ul>
+    </nav>
   );
 }

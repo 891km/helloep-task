@@ -10,6 +10,7 @@ export default function FilterYear({ years }) {
 
   const handleYearClick = (year) => {
     const params = new URLSearchParams(searchParasm.toString());
+    params.delete("page");
 
     if (year) {
       params.set("workYear", year);

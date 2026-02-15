@@ -1,19 +1,32 @@
 import MainContent from "@/components/MainContent";
-import { fetchPosts, fetchTotalPages, fetchWorkYears } from "@/sanity/queries";
+import { fetchPosts, fetchWorkYears } from "@/sanity/queries";
+import { PAGE_SIZE } from "@/utils/constants";
 
 export default async function MainPage({ searchParams }) {
   const params = await searchParams;
 
-  const [posts, years, totalPages] = await Promise.all([
+  const [posts, years] = await Promise.all([
     fetchPosts({
       category: params?.category,
       workYear: params?.workYear,
       search: params?.search,
-      page: params?.page,
     }),
     fetchWorkYears(),
-    fetchTotalPages(),
   ]);
 
-  return <MainContent posts={posts} years={years} totalPages={totalPages} />;
+  const page = params?.page ? Number(params?.page) : 1;
+  const start = (page - 1) * PAGE_SIZE;
+  const end = start + PAGE_SIZE;
+
+  const currentPosts = posts.slice(start, end);
+  const postCount = posts.length;
+
+  return (
+    <MainContent
+      currentPosts={currentPosts}
+      postCount={postCount}
+      years={years}
+      page={page}
+    />
+  );
 }

@@ -1,6 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function FilterSearch() {
   const router = useRouter();
@@ -10,9 +10,14 @@ export default function FilterSearch() {
     searchParams.get("search") || "",
   );
 
+  useEffect(() => {
+    setSearchValue(searchParams.get("search") || "");
+  }, [searchParams]);
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     const params = new URLSearchParams(searchParams.toString());
+    params.delete("page");
 
     if (searchValue) {
       params.set("search", searchValue);
