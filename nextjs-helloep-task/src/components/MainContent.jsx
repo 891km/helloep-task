@@ -2,15 +2,15 @@
 import FilterCategory from "@/components/FilterCategory";
 import LayoutButton from "@/components/LayoutButton";
 import ResultGrid from "@/components/ResultGrid";
-import { useState } from "react";
 import FilterYear from "@/components/FilterYear";
 import FilterReset from "@/components/FilterReset";
 import FilterSearch from "@/components/FilterSearch";
 import Pagination from "@/components/Pagination";
 import ResultList from "@/components/ResultList";
+import { useLayout } from "@/provider/LayoutProvider";
 
 export default function MainContent({ posts, years, totalPages }) {
-  const [isList, setIsList] = useState(false);
+  const { isList, setIsList } = useLayout();
 
   return (
     <>
