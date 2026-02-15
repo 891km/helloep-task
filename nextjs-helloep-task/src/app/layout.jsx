@@ -10,7 +10,7 @@ const interSans = Inter({
 });
 
 export const metadata = {
-  title: "일상의실천 사전과제 - 김민주",
+  title: "김민주 | 일상의실천 사전과제",
 };
 
 export default function RootLayout({ main, side }) {
