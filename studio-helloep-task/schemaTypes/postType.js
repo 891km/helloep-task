@@ -4,6 +4,46 @@ export const postType = defineType({
   name: 'post',
   title: 'Post',
   type: 'document',
+
+  orderings: [
+    {
+      title: '작업년도 최신순 (workYear Desc)',
+      name: 'workYearDesc',
+      by: [
+        {field: 'workYear', direction: 'desc'},
+        {field: 'publishedAt', direction: 'desc'},
+      ],
+    },
+    {
+      title: '작업년도 과거순 (workYear Asc)',
+      name: 'workYearAsc',
+      by: [
+        {field: 'workYear', direction: 'asc'},
+        {field: 'publishedAt', direction: 'asc'},
+      ],
+    },
+    {
+      title: '제목순 (title)',
+      name: 'titleAsc',
+      by: [{field: 'title', direction: 'asc'}],
+    },
+  ],
+
+  preview: {
+    select: {
+      title: 'title',
+      workYear: 'workYear',
+      media: 'thumbnail',
+    },
+    prepare({title, workYear, media}) {
+      return {
+        title: title,
+        subtitle: workYear ? `${workYear}` : 'No year',
+        media: media,
+      }
+    },
+  },
+
   fields: [
     defineField({
       name: 'title',
