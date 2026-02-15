@@ -1,18 +1,12 @@
-function Heading({ children }) {
-  return (
-    <h5 className="text-base uppercase border-b border-b-gray w-fit not-first:mt-4">
-      {children}
-    </h5>
-  );
-}
+import TextHeading from "@/components/side/TextHeading";
 
 export const components = {
   block: {
-    h1: ({ children }) => <Heading>{children}</Heading>,
-    h2: ({ children }) => <Heading>{children}</Heading>,
-    h3: ({ children }) => <Heading>{children}</Heading>,
-    h4: ({ children }) => <Heading>{children}</Heading>,
-    h5: ({ children }) => <Heading>{children}</Heading>,
+    h1: ({ children }) => <TextHeading>{children}</TextHeading>,
+    h2: ({ children }) => <TextHeading>{children}</TextHeading>,
+    h3: ({ children }) => <TextHeading>{children}</TextHeading>,
+    h4: ({ children }) => <TextHeading>{children}</TextHeading>,
+    h5: ({ children }) => <TextHeading>{children}</TextHeading>,
     h6: ({ children }) => <h6 className="text-sm font-bold">{children}</h6>,
   },
   types: {

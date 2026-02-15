@@ -1,5 +1,5 @@
 "use client";
-import LanguageButton from "@/components/LanguageButton";
+import LanguageButton from "@/components/buttons/LanguageButton";
 import Link from "next/link";
 import { useState } from "react";
 

@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/components/Header";
+import Header from "@/components/main/Header";
 import SideHeader from "@/components/side/SideHeader";
 import { useEffect, useRef, useState } from "react";
 
