@@ -2,6 +2,7 @@ import { client } from "@/sanity/client";
 
 const options = { next: { revalidate: 3600 } };
 
+// --- posts ---
 export async function fetchPosts({ category, workYear, search }) {
   const filters = ['_type == "post"', "defined(slug.current)"];
 
@@ -83,4 +84,20 @@ export async function fetchWorkYears() {
   const result = await client.fetch(YEARS_QUERY);
   const years = Array.from(new Set(result.map((item) => item.workYear)));
   return years;
+}
+
+// --- contact ---
+export async function fetchContact() {
+  const CONTACT_QUERY = `*[_type == "contact"][0]{
+    content[]
+  }`;
+  return await client.fetch(CONTACT_QUERY, {}, options);
+}
+
+// --- cv ---
+export async function fetchCV() {
+  const CV_QUERY = `*[_type == "CV"][0]{
+    content[]
+  }`;
+  return await client.fetch(CV_QUERY, {}, options);
 }

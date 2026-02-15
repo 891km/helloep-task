@@ -1,14 +1,15 @@
-import SideContent from "@/components/SideContent";
-import SideHeader from "@/components/SideHeader";
-import { fetchPostBySlug } from "@/sanity/queries";
+import SideContent from "@/components/side/SideContent";
+import { fetchContact, fetchCV, fetchPostBySlug } from "@/sanity/queries";
 
 export default async function SideDetailPage({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug?.[0];
-  const post = await fetchPostBySlug(slug);
 
-  if (!slug && !post) {
-    return null;
-  }
-  return <SideContent post={post} />;
+  const [post, contact, cv] = await Promise.all([
+    fetchPostBySlug(slug),
+    fetchContact(),
+    fetchCV(),
+  ]);
+
+  return <SideContent content={{ post, contact, cv }} />;
 }

@@ -1,6 +1,6 @@
 "use client";
 import Header from "@/components/Header";
-import SideHeader from "@/components/SideHeader";
+import SideHeader from "@/components/side/SideHeader";
 import { useEffect, useRef, useState } from "react";
 
 export default function Layout({ main, side }) {
