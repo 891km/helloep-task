@@ -11,12 +11,23 @@ export const components = {
   },
   types: {
     table: ({ value }) => (
-      <table className="text-base w-full">
-        <tbody className="flex flex-col gap-1">
+      <table
+        style={{
+          tableLayout: "fixed",
+          borderCollapse: "separate",
+          borderSpacing: "0 0.25rem",
+        }}
+        className="text-base"
+      >
+        <tbody>
           {value.rows?.map((row, i) => (
-            <tr key={i} className="flex">
+            <tr key={i}>
               {row.cells?.map((cell, j) => (
-                <td key={j} className={j === 0 ? "w-28 shrink-0" : "w-auto"}>
+                <td
+                  key={j}
+                  style={{ verticalAlign: "top" }}
+                  className={j === 0 ? "w-28" : "break-all"}
+                >
                   {cell}
                 </td>
               ))}

@@ -71,12 +71,17 @@ export default function Layout({ main, side, postDetail }) {
     <div className="flex w-screen h-screen">
       <main
         className={cn(
-          `flex flex-col w-full h-full overflow-y-auto min-w-[${MAIN_MIN_WIDTH}px]`,
+          `flex flex-col w-full h-full min-w-[${MAIN_MIN_WIDTH}px]`,
           "tablet:min-w-full",
         )}
       >
         <Header />
-        <div className={cn("flex-1 px-2.5 pb-11 w-full flex flex-col")}>
+        <div
+          className={cn(
+            "px-2.5 w-full h-full flex flex-col",
+            "flex-1 pb-20 overflow-y-auto",
+          )}
+        >
           {main}
         </div>
       </main>
@@ -84,14 +89,24 @@ export default function Layout({ main, side, postDetail }) {
       {isTablet ? (
         <>
           <aside
-            className={`fixed top-0 left-0 z-1000 bg-background border-r border-r-gray w-[calc(100%-2.5rem)] h-full transition-transform duration-500 ${isOpen && currentMenu !== "PostDetail" ? "translate-x-0" : "-translate-x-full"}`}
+            className={cn(
+              "fixed top-0 left-0 z-1000 w-[calc(100%-2.5rem)] h-full",
+              "flex flex-col",
+              "bg-background border-r border-r-gray transition-transform duration-500",
+              `${isOpen && currentMenu !== "PostDetail" ? "translate-x-0" : "-translate-x-full"}`,
+            )}
           >
             <SideHeader />
             {side}
           </aside>
 
           <aside
-            className={`fixed top-10 bottom-0 z-1500 bg-background w-full h-full transition-transform duration-500 ${isOpen && currentMenu === "PostDetail" ? "translate-y-0" : "translate-y-full"}`}
+            className={cn(
+              "fixed top-10 bottom-0 z-1500 w-full h-full",
+              "flex flex-col",
+              "bg-background transition-transform duration-500",
+              `${isOpen && currentMenu === "PostDetail" ? "translate-y-0" : "translate-y-full"}`,
+            )}
           >
             {postDetail}
           </aside>
@@ -107,9 +122,7 @@ export default function Layout({ main, side, postDetail }) {
             style={{
               width: `${sideWidth}%`,
             }}
-            className={cn(
-              `shrink-0 flex flex-col w-1/3 min-w-100 h-full overflow-hidden`,
-            )}
+            className={cn(`shrink-0 w-1/3 min-w-100 h-full overflow-hidden`)}
           >
             <h4 className="sr-only">상세 내용</h4>
             <SideHeader />

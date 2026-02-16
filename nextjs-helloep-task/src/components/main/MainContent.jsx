@@ -19,9 +19,9 @@ export default function MainContent({ currentPosts, postCount, years, page }) {
   return (
     <>
       {isMobile ? (
-        <section className="w-full flex flex-col text-lg whitespace-nowrap bg-background/80 sticky top-10 z-10 *:h-10">
+        <section className="w-full flex flex-col text-lg whitespace-nowrap bg-background/80 sticky top-0 z-100 *:h-10">
           <h2 className="sr-only">카테고리, 검색어 및 연도별 필터</h2>
-          <div className="flex gap-2 border-b border-b-gray">
+          <div className="w-full flex gap-2 border-b border-b-gray">
             <FilterSearch />
             <FilterResetButton />
             <LayoutButton />
@@ -34,7 +34,7 @@ export default function MainContent({ currentPosts, postCount, years, page }) {
       ) : (
         <>
           <section
-            className={`py-1.5 w-full flex gap-x-8 items-start justify-between text-xl whitespace-nowrap bg-background/80 sticky top-10 z-10`}
+            className={`py-1.5 w-full flex gap-x-8 items-start justify-between text-xl whitespace-nowrap bg-background/80 sticky top-0 z-10`}
           >
             <h2 className="sr-only">카테고리 필터</h2>
             <FilterCategory />

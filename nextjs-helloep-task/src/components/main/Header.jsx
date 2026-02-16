@@ -2,6 +2,7 @@
 import LanguageButton from "@/components/buttons/LanguageButton";
 import SideOpenButton from "@/components/buttons/SideOpenButton";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import { cn } from "@/utils/tailwindcss";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -10,12 +11,17 @@ export default function Header() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <header className="px-2.5 tablet:pr-0 shrink-0 h-10 text-xl flex justify-between items-center whitespace-nowrap border-b border-b-gray bg-background sticky top-0 left-0 z-10">
+    <header
+      className={cn(
+        "px-2.5 shrink-0 w-full h-10 text-xl flex justify-between items-center whitespace-nowrap border-b border-b-gray bg-background sticky top-0 left-0 z-300",
+        "tablet:pr-0 mobile:text-lg",
+      )}
+    >
       <Link
         href="/"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative w-55"
+        className="relative w-55 mobile:w-48"
       >
         <span
           className={`absolute transition-opacity duration-300 ${

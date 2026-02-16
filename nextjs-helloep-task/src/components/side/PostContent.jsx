@@ -2,6 +2,7 @@
 import CategoryTag from "@/components/CategoryTag";
 import { useLanguage } from "@/provider/LanguageProvider";
 import { getYoutubeEmbed } from "@/utils/getYoutubeEmbed";
+import { cn } from "@/utils/tailwindcss";
 import { urlFor } from "@/utils/urlFor";
 import { getImageDimensions } from "@sanity/asset-utils";
 import Image from "next/image";
@@ -14,8 +15,8 @@ export default function PostContent({ content: post }) {
   if (!post) return;
 
   return (
-    <div className="relative flex-1 w-full h-full flex flex-col">
-      <div className="flex-1 flex flex-col w-full overflow-y-auto">
+    <div className="relative w-full h-full flex flex-col">
+      <div className="flex flex-col w-full flex-1 overflow-y-auto pb-30">
         {/* title */}
         <div className="px-2.5 py-3 pb-8 flex gap-4 justify-between items-start">
           <span className="text-2xl">
@@ -33,7 +34,7 @@ export default function PostContent({ content: post }) {
         </div>
 
         {/* content */}
-        <div className="px-2.5 pb-28 flex flex-col gap-4">
+        <div className="px-2.5 flex flex-col gap-4">
           {post.content.map((content, i) => {
             if (content._type === "youtubeEmbed") {
               const src = getYoutubeEmbed(content.url);
@@ -78,49 +79,55 @@ export default function PostContent({ content: post }) {
 
       {/* description */}
       <div
-        className={`shrink-0 absolute right-0 bg-background w-full h-full flex flex-col gap-7 p-2.5 pr-10 bottom-28 transition-transform duration-500 ${isExpanded ? "translate-y-28" : "translate-y-full"}`}
+        className={cn(
+          "absolute right-0 bottom-30",
+          "w-full h-full flex flex-col p-2.5 pr-10",
+          "bg-background transition-transform duration-500",
+          `${isExpanded ? "translate-y-30" : "translate-y-full"}`,
+        )}
       >
         <MoreButton
           onClick={() => setIsExpanded((prev) => !prev)}
           isExpanded={isExpanded}
         />
-        <p className={`whitespace-pre-line ${!isExpanded && "line-clamp-2"}`}>
-          {isKor ? post.description : post.eng.description}
-        </p>
-        <p className="whitespace-pre-line">
-          {isKor ? post.credit : post.eng.credit}
-        </p>
-        <span>
-          {isKor ? "클라이언트." : "Client."} {post.client}
-        </span>
+        <div className="flex-1 flex flex-col gap-7 overflow-y-auto pb-20">
+          <p className={`whitespace-pre-line ${!isExpanded && "line-clamp-2"}`}>
+            {isKor ? post.description : post.eng.description}
+          </p>
+          <p className="whitespace-pre-line">
+            {isKor ? post.credit : post.eng.credit}
+          </p>
+          <span>
+            {isKor ? "클라이언트." : "Client."} {post.client}
+          </span>
 
-        {post.workLinks && post.workLinks.length > 0 && (
-          <div>
-            {post.workLinks.map((link) => (
-              <a
-                key={link}
-                href={link}
-                target="_blank"
-                className="flex gap-1 items-center hover:text-gray"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className="w-4 h-4"
-                >
-                  <path d="M1 12h22" />
-                  <path d="M12 1v22" />
-                </svg>
-                {link}
-              </a>
-            ))}
-          </div>
-        )}
+          {post.workLinks && post.workLinks.length > 0 && (
+            <ul className="w-full">
+              {post.workLinks.map((link) => (
+                <li key={link} className="w-full flex gap-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className="shrink-0 w-4 h-4 my-0.5"
+                  >
+                    <path d="M1 12h22" />
+                    <path d="M12 1v22" />
+                  </svg>
+                  <a
+                    href={link}
+                    target="_blank"
+                    className="text-base/5 w-full wrap-break-word hover:text-gray"
+                  >
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </div>
   );

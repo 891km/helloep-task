@@ -11,7 +11,7 @@ export default function CVContent({ content: cv }) {
     );
 
   return (
-    <div className="p-2.5 text-lg flex flex-col gap-2.5">
+    <div className="w-full text-lg flex flex-col gap-2.5">
       <PortableText value={cv.content} components={components} />
     </div>
   );
