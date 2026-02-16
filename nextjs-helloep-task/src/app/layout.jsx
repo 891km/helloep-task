@@ -18,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ main, side, postDetail }) {
   return (
     <html lang="ko">
-      <body className={`${interSans.variable} antialiased`}>
+      <body className={`${interSans.variable} font-sans antialiased`}>
         <LanguageProvider>
           <LayoutProvider>
             <SideMenuProvider>
