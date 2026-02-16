@@ -5,22 +5,21 @@ import { useEffect, useState } from "react";
 export default function FilterSearch() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const currentSearchValue = searchParams.get("search") || "";
 
-  const [searchValue, setSearchValue] = useState(
-    searchParams.get("search") || "",
-  );
+  const [searchValue, setSearchValue] = useState(currentSearchValue);
 
   useEffect(() => {
-    setSearchValue(searchParams.get("search") || "");
-  }, [searchParams]);
+    setSearchValue(currentSearchValue);
+  }, [currentSearchValue]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     const params = new URLSearchParams(searchParams.toString());
     params.delete("page");
 
-    if (searchValue) {
-      params.set("search", searchValue);
+    if (searchValue.trim()) {
+      params.set("search", searchValue.trim());
     } else {
       params.delete("search");
     }

@@ -3,7 +3,8 @@ import "./globals.css";
 import { LanguageProvider } from "@/provider/LanguageProvider";
 import Layout from "@/components/Layout";
 import { LayoutProvider } from "@/provider/LayoutProvider";
-import SideNavProvider from "@/provider/SideNavProvider";
+import SideMenuProvider from "@/provider/SideMenuProvider";
+import SideOpenProvider from "@/provider/SideOpenProvider";
 
 const interSans = Inter({
   variable: "--font-geist-sans",
@@ -14,15 +15,17 @@ export const metadata = {
   title: "김민주 | 일상의실천 사전과제",
 };
 
-export default function RootLayout({ main, side }) {
+export default function RootLayout({ main, side, postDetail }) {
   return (
     <html lang="ko">
       <body className={`${interSans.variable} antialiased`}>
         <LanguageProvider>
           <LayoutProvider>
-            <SideNavProvider>
-              <Layout main={main} side={side} />
-            </SideNavProvider>
+            <SideMenuProvider>
+              <SideOpenProvider>
+                <Layout main={main} side={side} postDetail={postDetail} />
+              </SideOpenProvider>
+            </SideMenuProvider>
           </LayoutProvider>
         </LanguageProvider>
       </body>

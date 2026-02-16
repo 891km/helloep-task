@@ -1,11 +1,11 @@
 "use client";
-import { useSideNav } from "@/provider/SideNavProvider";
+import { useSideMenu } from "@/provider/SideMenuProvider";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function SideHeader() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { currentMenu, setCurrentMenu } = useSideNav();
+  const { currentMenu, setCurrentMenu } = useSideMenu();
 
   const menus = ["Contact", "CV", "Client"];
 
@@ -18,7 +18,11 @@ export default function SideHeader() {
 
   return (
     <header className="shrink-0 h-10 px-2.5 border-b border-b-gray bg-background">
-      <nav className="w-full h-full flex items-center justify-end">
+      <nav
+        className={
+          "w-full h-full flex items-center justify-end tablet:justify-start"
+        }
+      >
         <ul className="flex gap-2.5 text-xl text-gray">
           {menus.map((menu) => (
             <MenuItem

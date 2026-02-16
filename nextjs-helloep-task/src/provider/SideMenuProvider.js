@@ -3,7 +3,7 @@ import { createContext, useState, useContext } from "react";
 
 const SideNavContext = createContext(null);
 
-export default function SideNavProvider({ children }) {
+export default function SideMenuProvider({ children }) {
   const [currentMenu, setCurrentMenu] = useState("Contact");
 
   return (
@@ -13,9 +13,9 @@ export default function SideNavProvider({ children }) {
   );
 }
 
-export const useSideNav = () => {
+export const useSideMenu = () => {
   const context = useContext(SideNavContext);
   if (!context)
-    throw new Error("useSideNav는 SideNavProvider 안에서 사용되어야 합니다.");
+    throw new Error("useSideMenu는 SideMenuProvider 안에서 사용되어야 합니다.");
   return context;
 };

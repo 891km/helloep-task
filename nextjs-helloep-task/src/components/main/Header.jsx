@@ -1,13 +1,16 @@
 "use client";
 import LanguageButton from "@/components/buttons/LanguageButton";
+import SideOpenButton from "@/components/buttons/SideOpenButton";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Header() {
+  const { isTablet } = useMediaQuery();
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <header className="px-2.5 shrink-0 h-10 text-xl flex justify-between items-center whitespace-nowrap border-b border-b-gray bg-background sticky top-0 left-0 z-10">
+    <header className="px-2.5 tablet:pr-0 shrink-0 h-10 text-xl flex justify-between items-center whitespace-nowrap border-b border-b-gray bg-background sticky top-0 left-0 z-10">
       <Link
         href="/"
         onMouseEnter={() => setIsHovered(true)}
@@ -32,12 +35,16 @@ export default function Header() {
 
       <LanguageButton />
 
-      <a
-        href="mailto:hello@everyday-practice.com"
-        className="text-xl text-gray hover:text-foreground transition-colors"
-      >
-        hello@everyday-practice.com
-      </a>
+      {isTablet ? (
+        <SideOpenButton />
+      ) : (
+        <a
+          href="mailto:hello@everyday-practice.com"
+          className="text-xl text-gray hover:text-foreground transition-colors"
+        >
+          hello@everyday-practice.com
+        </a>
+      )}
     </header>
   );
 }
