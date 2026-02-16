@@ -76,7 +76,9 @@ export default function Layout({ main, side, postDetail }) {
         )}
       >
         <Header />
-        <div className="flex-1 px-2.5 pb-11 w-full flex flex-col">{main}</div>
+        <div className={cn("flex-1 px-2.5 pb-11 w-full flex flex-col")}>
+          {main}
+        </div>
       </main>
 
       {isTablet ? (

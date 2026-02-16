@@ -58,7 +58,7 @@ export default function FilterDropdown({
         className="w-full h-full flex justify-between items-center"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <span>{currentValue ?? defaultLabel}</span>
+        <span className="mobile:text-gray">{currentValue ?? defaultLabel}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="11"

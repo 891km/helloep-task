@@ -36,6 +36,11 @@
   div {
     word-break: keep-all;
   }
+
+  circle,
+  path {
+    vector-effect: non-scaling-stroke;
+  }
 }
 
 body {
