@@ -14,7 +14,7 @@ function getRandomIndex(seed) {
   return Math.floor(normalized * gridItemRatio.length);
 }
 
-export default function ResultGrid({ posts }) {
+export default function ResultGrid({ posts, currentSlug }) {
   const { isMobile } = useMediaQuery();
   const { isKor } = useLanguage();
 
@@ -36,7 +36,7 @@ export default function ResultGrid({ posts }) {
           >
             <Link
               href={`${post.slug.current}`}
-              className="flex flex-col gap-2 hover:opacity-50 transition-opacity"
+              className={`flex flex-col gap-2 transition-opacity hover:opacity-50 ${currentSlug === post.slug.current && "opacity-50"}`}
             >
               {imgSrc && (
                 <Image

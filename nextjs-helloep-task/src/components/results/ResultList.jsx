@@ -3,7 +3,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { useLanguage } from "@/provider/LanguageProvider";
 import Link from "next/link";
 
-export default function ResultList({ posts }) {
+export default function ResultList({ posts, currentSlug }) {
   const { isMobile } = useMediaQuery();
   const { isKor } = useLanguage();
 
@@ -14,7 +14,7 @@ export default function ResultList({ posts }) {
           <li key={post._id}>
             <Link
               href={`${post.slug.current}`}
-              className="flex items-start gap-2.5 py-2 border-b border-b-gray hover:opacity-50 transition-opacity"
+              className={`flex items-start gap-2.5 py-2 border-b border-b-gray transition-opacity hover:opacity-50 ${currentSlug === post.slug.current && "opacity-50"}`}
             >
               <div className="flex-2 flex flex-wrap items-center self-center gap-x-3 gap-y-2">
                 <h3 className="text-base/5">

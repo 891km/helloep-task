@@ -11,10 +11,19 @@ import { useLayout } from "@/provider/LayoutProvider";
 import ResultEmpty from "@/components/results/ResultEmpty";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import FilterResetButton from "@/components/buttons/FilterResetButton";
+import { useParams } from "next/navigation";
 
-export default function MainContent({ currentPosts, postCount, years, page }) {
+export default function MainContent({
+  currentSlug,
+  currentPosts,
+  postCount,
+  years,
+  page,
+}) {
   const { isMobile } = useMediaQuery();
   const { isList } = useLayout();
+  const params = useParams();
+  const slug = params?.slug;
 
   return (
     <>
@@ -58,9 +67,9 @@ export default function MainContent({ currentPosts, postCount, years, page }) {
         <div className="mt-11">
           {currentPosts.length > 0 ? (
             isList ? (
-              <ResultList posts={currentPosts} />
+              <ResultList posts={currentPosts} currentSlug={currentSlug} />
             ) : (
-              <ResultGrid posts={currentPosts} />
+              <ResultGrid posts={currentPosts} currentSlug={currentSlug} />
             )
           ) : (
             <ResultEmpty />
