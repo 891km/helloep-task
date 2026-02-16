@@ -4,7 +4,12 @@ const nextConfig = {
   reactCompiler: true,
   devIndicators: false,
   images: {
-    domains: ["cdn.sanity.io"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
   },
 };
 
