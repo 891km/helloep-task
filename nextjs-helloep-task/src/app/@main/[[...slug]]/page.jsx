@@ -11,6 +11,7 @@ export default async function MainPage({ params, searchParams }) {
       category: resolvedSearchparams?.category,
       workYear: resolvedSearchparams?.workYear,
       search: resolvedSearchparams?.search,
+      client: resolvedSearchparams?.client,
     }),
     fetchWorkYears(),
   ]);

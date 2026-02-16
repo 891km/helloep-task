@@ -10,8 +10,8 @@ export default function FilterDropdown({
   defaultLabel,
 }) {
   const router = useRouter();
-  const searchParasm = useSearchParams();
-  const currentValue = searchParasm.get(paramsKey);
+  const searchParams = useSearchParams();
+  const currentValue = searchParams.get(paramsKey);
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);

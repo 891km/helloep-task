@@ -1,9 +1,9 @@
-import { client } from "@/sanity/client";
+import { client as sanityClient } from "@/sanity/client";
 
 const options = { next: { revalidate: 3600 } };
 
 // --- posts ---
-export async function fetchPosts({ category, workYear, search }) {
+export async function fetchPosts({ category, workYear, search, client }) {
   const filters = ['_type == "post"', "defined(slug.current)"];
 
   if (category) {
@@ -12,6 +12,10 @@ export async function fetchPosts({ category, workYear, search }) {
 
   if (workYear) {
     filters.push(`workYear == ${workYear}`);
+  }
+
+  if (client) {
+    filters.push(`client == "${client}"`);
   }
 
   if (search) {
@@ -44,7 +48,7 @@ export async function fetchPosts({ category, workYear, search }) {
     } | order(workYear desc, publishedAt desc)
     `;
 
-  return await client.fetch(POSTS_QUERY, {}, options);
+  return await sanityClient.fetch(POSTS_QUERY, {}, options);
 }
 
 export async function fetchPostBySlug(slug) {
@@ -73,7 +77,7 @@ export async function fetchPostBySlug(slug) {
     content[]
   }`;
 
-  return await client.fetch(POST_QUERY, { slug }, options);
+  return await sanityClient.fetch(POST_QUERY, { slug }, options);
 }
 
 export async function fetchWorkYears() {
@@ -81,7 +85,7 @@ export async function fetchWorkYears() {
     workYear
   } | order(workYear desc)`;
 
-  const result = await client.fetch(YEARS_QUERY);
+  const result = await sanityClient.fetch(YEARS_QUERY);
   const years = Array.from(new Set(result.map((item) => item.workYear)));
   return years;
 }
@@ -91,7 +95,7 @@ export async function fetchContact() {
   const CONTACT_QUERY = `*[_type == "contact"][0]{
     content[]
   }`;
-  return await client.fetch(CONTACT_QUERY, {}, options);
+  return await sanityClient.fetch(CONTACT_QUERY, {}, options);
 }
 
 // --- cv ---
@@ -99,5 +103,16 @@ export async function fetchCV() {
   const CV_QUERY = `*[_type == "CV"][0]{
     content[]
   }`;
-  return await client.fetch(CV_QUERY, {}, options);
+  return await sanityClient.fetch(CV_QUERY, {}, options);
+}
+
+// --- clients ---
+export async function fetchClients() {
+  const CLIENTS_QUERY = `*[_type == "post" && defined(client)]{
+    client
+  }`;
+
+  const result = await sanityClient.fetch(CLIENTS_QUERY, {}, options);
+  const clients = Array.from(new Set(result.map((item) => item.client)));
+  return clients;
 }

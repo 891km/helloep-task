@@ -123,7 +123,10 @@ export default function Layout({ main, side, postDetail }) {
               style={{
                 width: `${sideWidth}%`,
               }}
-              className={cn(`shrink-0 w-1/3 min-w-100 h-full overflow-hidden`)}
+              className={cn(
+                "flex flex-col",
+                "shrink-0 w-1/3 min-w-100 h-full overflow-hidden",
+              )}
             >
               <h4 className="sr-only">상세 내용</h4>
               <SideHeader />
