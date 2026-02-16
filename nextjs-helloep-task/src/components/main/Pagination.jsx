@@ -1,3 +1,4 @@
+"use client";
 import { PAGE_SIZE } from "@/utils/constants";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";

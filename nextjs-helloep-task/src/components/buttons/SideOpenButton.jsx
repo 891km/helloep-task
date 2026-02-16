@@ -1,3 +1,4 @@
+"use client";
 import { useSideOpen } from "@/provider/SideOpenProvider";
 import { useRouter, useSearchParams } from "next/navigation";
 

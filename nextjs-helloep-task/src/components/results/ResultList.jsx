@@ -1,3 +1,4 @@
+"use client";
 import CategoryTag from "@/components/CategoryTag";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useLanguage } from "@/provider/LanguageProvider";

@@ -1,3 +1,4 @@
+"use client";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { cn } from "@/utils/tailwindcss";
 import { useRouter } from "next/navigation";
