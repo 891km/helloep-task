@@ -21,7 +21,7 @@ export default async function MainPage({ params, searchParams }) {
   const start = (page - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE;
 
-  const currentSlug = resolvedParams?.slug[0];
+  const currentSlug = resolvedParams?.slug?.[0] || "";
   const currentPosts = posts.slice(start, end);
   const postCount = posts.length;
 
