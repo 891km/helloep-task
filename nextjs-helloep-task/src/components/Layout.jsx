@@ -6,7 +6,7 @@ import { useSideMenu } from "@/provider/SideMenuProvider";
 import { useSideOpen } from "@/provider/SideOpenProvider";
 import { cn } from "@/utils/tailwindcss";
 import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 
 const MAIN_MIN_WIDTH = 768;
 
@@ -68,72 +68,74 @@ export default function Layout({ main, side, postDetail }) {
   };
 
   return (
-    <div className="flex w-screen h-screen">
-      <main
-        className={cn(
-          `flex flex-col w-full h-full min-w-[${MAIN_MIN_WIDTH}px]`,
-          "tablet:min-w-full",
-        )}
-      >
-        <Header />
-        <div
+    <Suspense>
+      <div className="flex w-screen h-screen">
+        <main
           className={cn(
-            "px-2.5 w-full h-full flex flex-col",
-            "flex-1 pb-20 overflow-y-auto",
+            `flex flex-col w-full h-full min-w-[${MAIN_MIN_WIDTH}px]`,
+            "tablet:min-w-full",
           )}
         >
-          {main}
-        </div>
-      </main>
-
-      {isTablet ? (
-        <>
-          <aside
+          <Header />
+          <div
             className={cn(
-              "fixed top-0 left-0 z-1000 w-[calc(100%-2.5rem)] h-full",
-              "flex flex-col",
-              "bg-background border-r border-r-gray transition-transform duration-500",
-              `${isOpen && currentMenu !== "PostDetail" ? "translate-x-0" : "-translate-x-full"}`,
+              "px-2.5 w-full h-full flex flex-col",
+              "flex-1 pb-20 overflow-y-auto",
             )}
           >
-            <SideHeader />
-            {side}
-          </aside>
+            {main}
+          </div>
+        </main>
 
-          <aside
-            className={cn(
-              "fixed top-10 bottom-0 z-1500 w-full h-full",
-              "flex flex-col",
-              "bg-background transition-transform duration-500",
-              `${isOpen && currentMenu === "PostDetail" ? "translate-y-0" : "translate-y-full"}`,
-            )}
-          >
-            {postDetail}
-          </aside>
-        </>
-      ) : (
-        <>
-          <ResizeHandler
-            onMouseDown={handleMouseDown}
-            isResizing={isResizing}
-          />
-          <aside
-            ref={sideRef}
-            style={{
-              width: `${sideWidth}%`,
-            }}
-            className={cn(`shrink-0 w-1/3 min-w-100 h-full overflow-hidden`)}
-          >
-            <h4 className="sr-only">상세 내용</h4>
-            <SideHeader />
-            <>
-              {postDetail}
+        {isTablet ? (
+          <>
+            <aside
+              className={cn(
+                "fixed top-0 left-0 z-1000 w-[calc(100%-2.5rem)] h-full",
+                "flex flex-col",
+                "bg-background border-r border-r-gray transition-transform duration-500",
+                `${isOpen && currentMenu !== "PostDetail" ? "translate-x-0" : "-translate-x-full"}`,
+              )}
+            >
+              <SideHeader />
               {side}
-            </>
-          </aside>
-        </>
-      )}
-    </div>
+            </aside>
+
+            <aside
+              className={cn(
+                "fixed top-10 bottom-0 z-1500 w-full h-full",
+                "flex flex-col",
+                "bg-background transition-transform duration-500",
+                `${isOpen && currentMenu === "PostDetail" ? "translate-y-0" : "translate-y-full"}`,
+              )}
+            >
+              {postDetail}
+            </aside>
+          </>
+        ) : (
+          <>
+            <ResizeHandler
+              onMouseDown={handleMouseDown}
+              isResizing={isResizing}
+            />
+            <aside
+              ref={sideRef}
+              style={{
+                width: `${sideWidth}%`,
+              }}
+              className={cn(`shrink-0 w-1/3 min-w-100 h-full overflow-hidden`)}
+            >
+              <h4 className="sr-only">상세 내용</h4>
+              <SideHeader />
+              <>
+                {postDetail}
+                {side}
+              </>
+            </aside>
+          </>
+        )}
+      </div>
+    </Suspense>
   );
 }
 

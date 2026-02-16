@@ -12,6 +12,7 @@ import ResultEmpty from "@/components/results/ResultEmpty";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import FilterResetButton from "@/components/buttons/FilterResetButton";
 import { useParams } from "next/navigation";
+import { Suspense } from "react";
 
 export default function MainContent({
   currentSlug,
@@ -26,7 +27,7 @@ export default function MainContent({
   const slug = params?.slug;
 
   return (
-    <>
+    <Suspense>
       {isMobile ? (
         <section className="w-full flex flex-col text-lg whitespace-nowrap bg-background/80 sticky top-0 z-100 *:h-10">
           <h2 className="sr-only">카테고리, 검색어 및 연도별 필터</h2>
@@ -77,6 +78,6 @@ export default function MainContent({
         </div>
         <Pagination postCount={postCount} page={page} />
       </section>
-    </>
+    </Suspense>
   );
 }
