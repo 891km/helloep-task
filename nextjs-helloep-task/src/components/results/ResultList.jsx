@@ -1,8 +1,10 @@
 import CategoryTag from "@/components/CategoryTag";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { useLanguage } from "@/provider/LanguageProvider";
 import Link from "next/link";
 
 export default function ResultList({ posts }) {
+  const { isMobile } = useMediaQuery();
   const { isKor } = useLanguage();
 
   return (
@@ -24,8 +26,12 @@ export default function ResultList({ posts }) {
                   ))}
                 </ul>
               </div>
-              <div className="flex-1">{post.workYear}</div>
-              <div className="flex-1">{post.client}</div>
+              {!isMobile && (
+                <>
+                  <div className="flex-1">{post.workYear}</div>
+                  <div className="flex-1">{post.client}</div>
+                </>
+              )}
             </Link>
           </li>
         );
