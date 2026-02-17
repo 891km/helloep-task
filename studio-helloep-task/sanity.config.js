@@ -19,17 +19,41 @@ export default defineConfig({
     structureTool({
       structure: (S) =>
         S.list()
-          .title('Content')
+          .title('CMS 관리')
           .items([
             S.listItem()
-              .title('Contact')
-              .child(S.document().schemaType('contact').documentId('contact')),
+              .title('콘텐츠')
+              .id('content')
+              .child(
+                S.list()
+                  .title('콘텐츠')
+                  .id('content')
+                  .items([
+                    S.listItem()
+                      .title('Contact')
+                      .child(S.document().schemaType('contact').documentId('contact')),
 
-            S.listItem().title('CV').child(S.document().schemaType('CV').documentId('CV')),
+                    S.listItem().title('CV').child(S.document().schemaType('CV').documentId('CV')),
 
-            S.divider(),
+                    S.divider(),
 
-            S.documentTypeListItem('post').title('Posts'),
+                    S.documentTypeListItem('post').title('Posts'),
+                  ]),
+              ),
+
+            S.listItem()
+              .title('설정')
+              .id('setting')
+              .child(
+                S.list()
+                  .title('설정')
+                  .id('setting')
+                  .items([
+                    S.listItem()
+                      .title('Category')
+                      .child(S.document().schemaType('category').documentId('category')),
+                  ]),
+              ),
           ]),
     }),
     visionTool(),
