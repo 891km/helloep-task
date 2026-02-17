@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { CATEGORIES } from "@/utils/categories";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import FilterDropdown from "@/components/filter/FilterDropdown";
+import { useCategories } from "@/provider/CategoriesProvider";
 
 export default function FilterCategory() {
   const { isMobile } = useMediaQuery();
+
+  const { categories } = useCategories();
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get("category");
 
@@ -29,8 +31,8 @@ export default function FilterCategory() {
       {isMobile ? (
         <FilterDropdown
           paramsKey={"category"}
-          optionValues={CATEGORIES.map((cat) => cat.value)}
-          optionLabels={CATEGORIES.map((cat) => cat.label)}
+          optionValues={categories.map((cat) => cat.value)}
+          optionLabels={categories.map((cat) => cat.label)}
           defaultLabel={"All"}
         ></FilterDropdown>
       ) : (
@@ -41,7 +43,7 @@ export default function FilterCategory() {
             >
               <Link href={createHref()}>All</Link>
             </li>
-            {CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <li
                 key={cat.value}
                 className={`${currentCategory === cat.value ? "text-foreground" : "text-gray"}`}

@@ -81,13 +81,9 @@ export async function fetchPostBySlug(slug) {
 }
 
 export async function fetchWorkYears() {
-  const YEARS_QUERY = `*[_type == "post" && defined(workYear)]{
-    workYear
-  } | order(workYear desc)`;
+  const YEARS_QUERY = `array::unique(*[_type == "post" && defined(workYear)].workYear) | order(@ desc)`;
 
-  const result = await sanityClient.fetch(YEARS_QUERY);
-  const years = Array.from(new Set(result.map((item) => item.workYear)));
-  return years;
+  return await sanityClient.fetch(YEARS_QUERY);
 }
 
 // --- contact ---
@@ -95,6 +91,7 @@ export async function fetchContact() {
   const CONTACT_QUERY = `*[_type == "contact"][0]{
     content[]
   }`;
+
   return await sanityClient.fetch(CONTACT_QUERY, {}, options);
 }
 
@@ -103,16 +100,29 @@ export async function fetchCV() {
   const CV_QUERY = `*[_type == "CV"][0]{
     content[]
   }`;
+
   return await sanityClient.fetch(CV_QUERY, {}, options);
 }
 
 // --- clients ---
 export async function fetchClients() {
-  const CLIENTS_QUERY = `*[_type == "post" && defined(client)]{
-    client
+  const CLIENTS_QUERY = `array::unique(*[_type == "post" && defined(client)].client)`;
+
+  return await sanityClient.fetch(CLIENTS_QUERY);
+}
+
+// --- categories ---
+export async function fetchCategories() {
+  const CATEGORIES_QUERY = `*[_type == "category"][0]{
+    categories[]{
+      label,
+      value,
+      color
+    }
   }`;
 
-  const result = await sanityClient.fetch(CLIENTS_QUERY, {}, options);
-  const clients = Array.from(new Set(result.map((item) => item.client)));
-  return clients;
+  const result = await sanityClient.fetch(CATEGORIES_QUERY, {}, options);
+  const categories = result?.categories || [];
+
+  return categories;
 }

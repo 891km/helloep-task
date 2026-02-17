@@ -30,7 +30,7 @@ export default function FilterDropdown({
   }, []);
 
   const handleItemClick = (value) => {
-    const params = new URLSearchParams(searchParasm.toString());
+    const params = new URLSearchParams(searchParams.toString());
     params.delete(paramsKey);
     params.delete("page");
 
