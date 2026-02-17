@@ -11,7 +11,6 @@ import { useLayout } from "@/provider/LayoutProvider";
 import ResultEmpty from "@/components/results/ResultEmpty";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import FilterResetButton from "@/components/buttons/FilterResetButton";
-import { useParams } from "next/navigation";
 import { Suspense } from "react";
 
 export default function MainContent({
@@ -23,8 +22,6 @@ export default function MainContent({
 }) {
   const { isMobile } = useMediaQuery();
   const { isList } = useLayout();
-  const params = useParams();
-  const slug = params?.slug;
 
   return (
     <Suspense>
