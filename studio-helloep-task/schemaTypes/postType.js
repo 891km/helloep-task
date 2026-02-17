@@ -1,4 +1,7 @@
 import {defineField, defineType} from 'sanity'
+import {client} from '../sanity/client'
+
+const categoryValues = await client.fetch(`*[_type == "category"][0].categories[].value`)
 
 export const postType = defineType({
   name: 'post',
@@ -121,8 +124,7 @@ export const postType = defineType({
         },
       ],
       options: {
-        list: ['graphic', 'editorial', 'website', 'identity', 'space', 'motion', 'practice', 'etc'],
-        layout: 'dropdown',
+        list: categoryValues ?? [],
       },
       validation: (rule) => rule.required(),
     }),
