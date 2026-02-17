@@ -9,7 +9,8 @@ export default function CategoryTag({ category }) {
 
   return (
     <li
-      className={`bg-[${color}] rounded-sm px-1 text-black text-xs w-fit h-fit`}
+      style={{ backgroundColor: color }}
+      className={`rounded-sm px-1 text-black text-xs w-fit h-fit`}
     >
       {label}
     </li>

@@ -52,7 +52,7 @@ export default function ResultGrid({ posts, currentSlug }) {
               <h3 className="text-base/5">
                 {isKor ? post.title : post.eng.title}
               </h3>
-              <ul className="flex flex-wrap gap-1">
+              <ul className="flex flex-wrap gap-1 w-[90%]">
                 {post.categories.map((category) => (
                   <CategoryTag key={category} category={category} />
                 ))}

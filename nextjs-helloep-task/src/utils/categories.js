@@ -1,5 +1,5 @@
 export const getCategoryColor = ({ categories, value }) => {
-  return categories.find((cat) => cat.value === value)?.color || "bg-gray-200";
+  return categories.find((cat) => cat.value === value)?.color || "#787878";
 };
 
 export const getCategoryLabel = ({ categories, value }) => {
