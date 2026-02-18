@@ -1,28 +1,27 @@
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const TABLET_QUERY = "(max-width: 1194px)";
+const MOBILE_QUERY = "(max-width: 720px)";
+
+const subscribe = (query, callback) => {
+  const matchMedia = window.matchMedia(query);
+  matchMedia.addEventListener("change", callback);
+
+  return () => matchMedia.removeEventListener("change", callback);
+};
 
 const useMediaQuery = () => {
-  const [isTablet, setIsTablet] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isTablet = useSyncExternalStore(
+    (callback) => subscribe(TABLET_QUERY, callback),
+    () => window.matchMedia(TABLET_QUERY).matches,
+    () => false,
+  );
 
-  useEffect(() => {
-    const tabletQuery = window.matchMedia("(max-width: 1194px)");
-    const mobileQuery = window.matchMedia("(max-width: 720px)");
-
-    const handleChange = () => {
-      setIsTablet(tabletQuery.matches);
-      setIsMobile(mobileQuery.matches);
-    };
-
-    handleChange();
-
-    tabletQuery.addEventListener("change", handleChange);
-    mobileQuery.addEventListener("change", handleChange);
-
-    return () => {
-      tabletQuery.removeEventListener("change", handleChange);
-      mobileQuery.removeEventListener("change", handleChange);
-    };
-  }, []);
+  const isMobile = useSyncExternalStore(
+    (callback) => subscribe(MOBILE_QUERY, callback),
+    () => window.matchMedia(MOBILE_QUERY).matches,
+    () => false,
+  );
 
   return { isTablet, isMobile };
 };
